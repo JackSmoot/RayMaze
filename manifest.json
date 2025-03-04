@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "RayMaze",
+    "description": "Chrome Extension Mini Game",
+    "version": "1.0",
+    "action": {
+        "default_popup": "popup/popup.html"
+    }
+    
+}
