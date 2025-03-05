@@ -4,10 +4,13 @@
     "description": "Chrome Extension Mini Game",
     "version": "1.0",
     "action": {
-        "default_popup": "popup/popup.html",
-        "16": "RayMaze.png",
-        "32": "RayMaze.png",
-        "128": "RayMaze.png"
-    }
+        "default_popup": "popup/popup.html"
+    },
+    "icons": {
+    "16": "RayMaze.png",
+    "32": "RayMaze.png",
+    "48": "RayMaze.png",
+    "128": "RayMaze.png"
+  }
     
 }
