@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RayMaze</title>
+    <style>
+        body {
+            width: 250px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .game-window {
+            width: 100%;
+            height: 150px;
+            background-color: #f0f0f0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .up {
+            grid-column: 2;
+        }
+        .left {
+            grid-column: 1;
+        }
+        .right {
+            grid-column: 3;
+        }
+        .down {
+            grid-column: 2;
+        }
+    </style>
+</head>
+<body>
+    <h2>RayMaze</h2>
+    <div class="game-window">Minigame Here</div>
+    <div class="controls">
+        <button class="up">⬆</button>
+        <button class="left">⬅</button>
+        <button class="right">➡</button>
+        <button class="down">⬇</button>
+    </div>
+</body>
+</html>
