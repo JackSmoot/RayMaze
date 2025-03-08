@@ -14,12 +14,29 @@
         .game-window {
             width: 100%;
             height: 150px;
-            background-color: grey;
+            background-color: white;
             margin-bottom: 10px;
             display: flex;
+            position: relative;
             align-items: center;
             justify-content: center;
             border: 4px solid black;
+            overflow: hidden;
+        }
+        .player, .goal {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+        }
+        .player {
+            left: 0;
+            top: 0;
+            background-color: blue;
+        }
+        .goal {
+            background-color: orange;
+            right: 0;
+            bottom: 0;
         }
         .controls {
             display: grid;
@@ -31,7 +48,7 @@
             padding: 3px;
             font-size: 24px;
             cursor: pointer;
-            background-color: palevioletred;
+            background-color: rgb(10, 225, 14);
             border: 4px solid black;
             color: rgb(29, 26, 26);
         }
@@ -51,12 +68,16 @@
 </head>
 <body>
     <h2>RayMaze</h2>
-    <div class="game-window">Minigame Here</div>
+    <div class="game-window">
+        <div class="player" id="player"></div>
+        <div class="goal"></div>
+    </div>
     <div class="controls">
         <button class="up">⬆</button>
         <button class="left">⬅</button>
         <button class="right">➡</button>
         <button class="down">⬇</button>
     </div>
+    <script src="game.js"></script>
 </body>
 </html>
