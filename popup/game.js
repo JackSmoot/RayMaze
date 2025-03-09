@@ -1,3 +1,12 @@
+//TODO
+//Obstacles
+//Obstacle randomization
+//Timer
+//Point system (time left/coins)
+//Coins
+//Color selector
+
+
 const player = document.getElementById("player");
 const gameWindow = document.querySelector(".game-window");
 
