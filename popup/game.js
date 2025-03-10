@@ -9,6 +9,8 @@
 
 const player = document.getElementById("player");
 const gameWindow = document.querySelector(".game-window");
+const obstacles = document.querySelectorAll(".obstacle");
+
 
 let posX = 0, posY = 0;
 const step = 20;
@@ -17,10 +19,15 @@ const gameWidth = gameWindow.clientWidth - 20;
 const gameHeight = gameWindow.clientHeight - 20;
 
 function movePlayer(dx, dy) {
-    posX = Math.max(0, Math.min(gameWidth, posX + dx));
-    posY = Math.max(0, Math.min(gameHeight, posY + dy));
-    player.style.left = posX + "px";
-    player.style.top = posY + "px";
+    newX = Math.max(0, Math.min(gameWidth, posX+dx));
+    newY = Math.max(0, Math.min(gameHeight, posY+dy));
+    if (!isCollidingWithObstacle(newX, newY)) {
+        posX = newX;
+        posY = newY;
+        player.style.left = posX + "px";
+        player.style.top = posY + "px";
+    }
+
     checkWin();
 }
 
@@ -40,6 +47,30 @@ function checkWin() {
         posY = 0;
         movePlayer(0, 0);
     }
+}
+
+function isCollidingWithObstacle(newX, newY) {
+    const tempPlayer = { left: newX, top: newY, right: newX + 20, bottom: newY + 20 };
+
+    for (const obstacle of obstacles) {
+        const obsRect = obstacle.getBoundingClientRect();
+        const obs = {
+            left: obsRect.left - gameWindow.getBoundingClientRect().left,
+            top: obsRect.top - gameWindow.getBoundingClientRect().top,
+            right: obsRect.left - gameWindow.getBoundingClientRect().left + 20,
+            bottom: obsRect.top - gameWindow.getBoundingClientRect().top + 20,
+        };
+
+        if (
+            tempPlayer.right > obs.left &&
+            tempPlayer.left < obs.right &&
+            tempPlayer.bottom > obs.top &&
+            tempPlayer.top < obs.bottom
+        ) {
+            return true;
+        }
+    }
+    return false;
 }
 
 document.querySelector(".up").addEventListener("click", () => movePlayer(0, -step));
