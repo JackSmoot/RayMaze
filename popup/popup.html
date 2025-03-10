@@ -72,9 +72,13 @@
             position: absolute;
         }
         .enemy {
+            left: 90px;
+            top: 10px;
             width: 20px;
             height: 20px;
             background-color: purple;
+            position: absolute;
+            transition: left 0.2s, top 0.2s;
         }
     </style>
 </head>
@@ -89,7 +93,7 @@
         <div class="obstacle" style="left: 200px; top: 0px;"></div>
         <div class="obstacle" style="left: 120px; top: 120px;"></div>
         <div class="obstacle" style="left: 120px; top: 80px;"></div>
-        <div class="enemy"></div>
+        <div class="enemy" id="enemy"></div>
     </div>
     <div class="controls">
         <button class="up">⬆</button>
