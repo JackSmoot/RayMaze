@@ -1,3 +1,12 @@
 # RAYMAZE
-## Google Chrome Extension Mini Game - RayMaze
-_A mini game for when you are bored on Google, but still want to stay on the same page_
+## 🎮 RayMaze - A Simple Maze Game for Chrome Extensions  
+
+## 🔮 Features to Be Added  
+🔲 **Randomized Maps**  
+🔲 **Timer**  
+🔲 **Point System(based on timer and coins)**  
+🔲 **Coins(contribute to points)**  
+🔲 **Color Customization**  
+🔲 **Sound**  
+
+
