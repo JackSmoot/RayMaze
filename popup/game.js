@@ -1,10 +1,13 @@
 //TODO
 //Obstacles
 //Obstacle randomization
+//Player Smooth movement
 //Timer
 //Point system (time left/coins)
 //Coins
 //Color selector
+//Enemies(patrolling/randomized/hunters)
+//Sound/Music
 
 
 const player = document.getElementById("player");
