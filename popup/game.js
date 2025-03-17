@@ -87,8 +87,8 @@ function checkWin() {
     const goalRect = goal.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
     const isTouching =
-        playerRect.left == goalRect.left &&
         playerRect.right == goalRect.right &&
+        playerRect.left == goalRect.left &&
         playerRect.top == goalRect.top &&
         playerRect.bottom == goalRect.bottom;
 
