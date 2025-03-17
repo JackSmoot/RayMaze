@@ -69,7 +69,6 @@ function moveEnemy() {
 setInterval(moveEnemy, 250);
 
 function movePlayer(dx, dy) {
-    checkWin();
     newX = Math.max(0, Math.min(gameWidth, posX+dx));
     newY = Math.max(0, Math.min(gameHeight, posY+dy));
     if (!isCollidingWithObstacle(newX, newY)) {
@@ -94,7 +93,7 @@ function checkWin() {
         playerRect.bottom == goalRect.bottom;
 
     if (isTouching) {
-        alert("You win!");
+        //alert("You win!");
         posX = 0;
         posY = 0;
         movePlayer(0, 0);
@@ -112,7 +111,7 @@ function checkLose() {
         playerRect.bottom > enemyRect.top;
 
     if (isTouching) {
-        alert("Game Over! The enemy got you!");
+        //alert("Game Over! The enemy got you!");
         posX = 0;
         posY = 0;
         movePlayer(0, 0);
