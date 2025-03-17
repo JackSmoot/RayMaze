@@ -69,6 +69,7 @@ function moveEnemy() {
 setInterval(moveEnemy, 250);
 
 function movePlayer(dx, dy) {
+    checkWin();
     newX = Math.max(0, Math.min(gameWidth, posX+dx));
     newY = Math.max(0, Math.min(gameHeight, posY+dy));
     if (!isCollidingWithObstacle(newX, newY)) {
