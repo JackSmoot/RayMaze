@@ -47,9 +47,9 @@ let movingForward = true;
 enemy.style.left = patrolPath[0].x + "px";
 enemy.style.top = patrolPath[0].y + "px";
 
-setInterval(checkWin, 100);
+setInterval(checkWin, 65);
 setInterval(moveEnemy, 250);
-setInterval(checkLose, 100);
+setInterval(checkLose, 65);
 
 function moveEnemy() {
 
@@ -178,7 +178,7 @@ document.querySelector(".right").addEventListener("click", () => {
 
 playAgainButton.addEventListener("click", resetGame);
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keyup", (event) => {
     if (gameOver) return;
 
     switch (event.key) {
