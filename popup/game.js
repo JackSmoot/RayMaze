@@ -77,10 +77,21 @@ function movePlayer(dx, dy) {
         player.style.left = posX + "px";
         player.style.top = posY + "px";
     }
-
-    checkWin();
-    checkLose();
 }
+
+function resetGame() {
+    posX = 0;
+    posY = 0;
+    player.style.left = posX + "px";
+    player.style.top = posY + "px";
+
+    enemyIndex = 0;
+    movingForward = true;
+    enemy.style.left = patrolPath[0].x + "px";
+    enemy.style.top = patrolPath[0].y + "px";
+}
+
+setInterval(checkWin, 10);
 
 function checkWin() {
     const goal = document.querySelector(".goal");
@@ -93,10 +104,8 @@ function checkWin() {
         playerRect.bottom == goalRect.bottom;
 
     if (isTouching) {
-        //alert("You win!");
-        posX = 0;
-        posY = 0;
-        movePlayer(0, 0);
+        alert("You win!");
+        resetGame();
     }
 }
 
@@ -110,12 +119,10 @@ function checkLose() {
         playerRect.top < enemyRect.bottom &&
         playerRect.bottom > enemyRect.top;
 
-    if (isTouching) {
-        //alert("Game Over! The enemy got you!");
-        posX = 0;
-        posY = 0;
-        movePlayer(0, 0);
-    }
+        if (isTouching) {
+            alert("Game Over! The enemy got you!");
+            resetGame();
+        }
 }
 
 function isCollidingWithObstacle(newX, newY) {
