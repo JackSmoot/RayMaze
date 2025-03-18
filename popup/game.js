@@ -102,7 +102,7 @@ function resetGame() {
 
 function checkWin() {
     if (gameOver) return;
-
+    
     const goal = document.querySelector(".goal");
     const goalRect = goal.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
@@ -119,7 +119,6 @@ function checkWin() {
 
 function checkLose() {
     if (gameOver) return;
-    
     const enemyRect = enemy.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
 
