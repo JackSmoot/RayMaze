@@ -24,6 +24,21 @@
             overflow: hidden;
         
         }
+        #message-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            display: none;
+        }
+        .hidden {
+            display: none;
+        }
         .player, .goal {
             width: 20px;
             height: 20px;
@@ -95,6 +110,10 @@
         <div class="obstacle" style="left: 120px; top: 120px;"></div>
         <div class="obstacle" style="left: 120px; top: 80px;"></div>
         <div class="enemy" id="enemy"></div>
+    </div>
+    <div id="message-box" class="hidden">
+        <p id="message-text"></p>
+        <button id="play-again">Play Again</button>
     </div>
     <div class="controls">
         <button class="up">⬆</button>

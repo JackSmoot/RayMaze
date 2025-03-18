@@ -15,11 +15,17 @@ const gameWindow = document.querySelector(".game-window");
 const obstacles = document.querySelectorAll(".obstacle");
 const enemies = document.getElementById("enemy");
 
+const messageBox = document.getElementById("message-box");
+const messageText = document.getElementById("message-text");
+const playAgainButton = document.getElementById("play-again");
+
 let posX = 0, posY = 0;
 const step = 20;
 
 const gameWidth = gameWindow.clientWidth - 20;
 const gameHeight = gameWindow.clientHeight - 20;
+
+let gameOver = false;
 
 const patrolPath = [
     { x: 90, y: 10 }, // top right
@@ -41,6 +47,10 @@ let movingForward = true;
 enemy.style.left = patrolPath[0].x + "px";
 enemy.style.top = patrolPath[0].y + "px";
 
+setInterval(checkWin, 100);
+setInterval(moveEnemy, 250);
+setInterval(checkLose, 100);
+
 function moveEnemy() {
 
     let target = patrolPath[enemyIndex];
@@ -48,7 +58,6 @@ function moveEnemy() {
     enemy.style.left = target.x + "px";
     enemy.style.top = target.y + "px";
 
-    checkLose();
 
     // Update enemy index for next movement
     if (movingForward) {
@@ -66,8 +75,6 @@ function moveEnemy() {
     }
 }
 
-setInterval(moveEnemy, 250);
-
 function movePlayer(dx, dy) {
     newX = Math.max(0, Math.min(gameWidth, posX+dx));
     newY = Math.max(0, Math.min(gameHeight, posY+dy));
@@ -80,6 +87,8 @@ function movePlayer(dx, dy) {
 }
 
 function resetGame() {
+    gameOver = false;
+    messageBox.style.display = "none";
     posX = 0;
     posY = 0;
     player.style.left = posX + "px";
@@ -91,9 +100,9 @@ function resetGame() {
     enemy.style.top = patrolPath[0].y + "px";
 }
 
-setInterval(checkWin, 10);
-
 function checkWin() {
+    if (gameOver) return;
+
     const goal = document.querySelector(".goal");
     const goalRect = goal.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
@@ -104,12 +113,13 @@ function checkWin() {
         playerRect.bottom == goalRect.bottom;
 
     if (isTouching) {
-        alert("You win!");
-        resetGame();
+        showMessage("🎉 You Win!");
     }
 }
 
 function checkLose() {
+    if (gameOver) return;
+    
     const enemyRect = enemy.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
 
@@ -120,9 +130,14 @@ function checkLose() {
         playerRect.bottom > enemyRect.top;
 
         if (isTouching) {
-            alert("Game Over! The enemy got you!");
-            resetGame();
+            showMessage("😢 Game Over! The enemy got you!");
         }
+}
+
+function showMessage(text) {
+    gameOver = true;
+    messageText.textContent = text;
+    messageBox.style.display = "block";
 }
 
 function isCollidingWithObstacle(newX, newY) {
@@ -149,12 +164,24 @@ function isCollidingWithObstacle(newX, newY) {
     return false;
 }
 
-document.querySelector(".up").addEventListener("click", () => movePlayer(0, -step));
-document.querySelector(".down").addEventListener("click", () => movePlayer(0, step));
-document.querySelector(".left").addEventListener("click", () => movePlayer(-step, 0));
-document.querySelector(".right").addEventListener("click", () => movePlayer(step, 0));
+document.querySelector(".up").addEventListener("click", () => {
+    if (!gameOver) movePlayer(0, -step);
+});
+document.querySelector(".down").addEventListener("click", () => {
+    if (!gameOver) movePlayer(0, step);
+});
+document.querySelector(".left").addEventListener("click", () => {
+    if (!gameOver) movePlayer(-step, 0);
+});
+document.querySelector(".right").addEventListener("click", () => {
+    if (!gameOver) movePlayer(step, 0);
+});
+
+playAgainButton.addEventListener("click", resetGame);
 
 document.addEventListener("keydown", (event) => {
+    if (gameOver) return;
+
     switch (event.key) {
         case "ArrowUp":
         case "w":
