@@ -9,7 +9,6 @@
 //Enemies(patrolling/randomized/hunters)
 //Sound/Music
 
-
 const player = document.getElementById("player");
 const gameWindow = document.querySelector(".game-window");
 const obstacles = document.querySelectorAll(".obstacle");
@@ -94,10 +93,8 @@ function resetGame() {
     player.style.left = posX + "px";
     player.style.top = posY + "px";
 
-    enemyIndex = 0;
-    movingForward = true;
-    enemy.style.left = patrolPath[0].x + "px";
-    enemy.style.top = patrolPath[0].y + "px";
+    const randomMap = getRandomMap();
+    setupMap(randomMap);
 }
 
 function checkWin() {
@@ -107,10 +104,10 @@ function checkWin() {
     const goalRect = goal.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
     const isTouching =
-        playerRect.right == goalRect.right &&
-        playerRect.left == goalRect.left &&
-        playerRect.top == goalRect.top &&
-        playerRect.bottom == goalRect.bottom;
+        playerRect.left < goalRect.right &&
+        playerRect.right > goalRect.left &&
+        playerRect.top < goalRect.bottom &&
+        playerRect.bottom > goalRect.top;
 
     if (isTouching) {
         showMessage("🎉 You Win!");
@@ -163,6 +160,35 @@ function isCollidingWithObstacle(newX, newY) {
     return false;
 }
 
+function getRandomMap() {
+    const randomIndex = Math.floor(Math.random() * maps.length);
+    return maps[randomIndex];
+}
+
+function setupMap(mapData) {
+    document.querySelectorAll(".obstacle").forEach(obs => obs.remove());
+    document.querySelectorAll(".enemy").forEach(enemy => enemy.remove());
+
+    mapData.obstacles.forEach(obs => {
+        const obstacle = document.createElement("div");
+        obstacle.className = "obstacle";
+        obstacle.style.left = `${obs.x}px`;
+        obstacle.style.top = `${obs.y}px`;
+        gameWindow.appendChild(obstacle);
+    });
+
+    const enemy = document.createElement("div");
+    enemy.className = "enemy";
+    enemy.style.left = `${mapData.enemyPath[0].x}px`;
+    enemy.style.top = `${mapData.enemyPath[0].y}px`;
+    gameWindow.appendChild(enemy);
+
+    patrolPath.length = 0;
+    mapData.enemyPath.forEach(point => patrolPath.push(point));
+    enemyIndex = 0;
+    movingForward = true;
+}
+
 document.querySelector(".up").addEventListener("click", () => {
     if (!gameOver) movePlayer(0, -step);
 });
@@ -204,3 +230,5 @@ document.addEventListener("keyup", (event) => {
             break;
     }
 });
+
+resetGame();
