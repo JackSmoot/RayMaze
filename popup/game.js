@@ -1,19 +1,5 @@
-//TODO
-//Obstacles
-//Obstacle randomization
-//Player Smooth movement
-//Timer
-//Point system (time left/coins)
-//Coins
-//Color selector
-//Enemies(patrolling/randomized/hunters)
-//Sound/Music
-
 const player = document.getElementById("player");
 const gameWindow = document.querySelector(".game-window");
-const obstacles = document.querySelectorAll(".obstacle");
-const enemies = document.getElementById("enemy");
-
 const messageBox = document.getElementById("message-box");
 const messageText = document.getElementById("message-text");
 const playAgainButton = document.getElementById("play-again");
@@ -26,37 +12,20 @@ const gameHeight = gameWindow.clientHeight - 20;
 
 let gameOver = false;
 
-const patrolPath = [
-    { x: 90, y: 10 }, // top right
-    { x: 90, y: 30 },
-    { x: 90, y: 50 },
-    { x: 90, y: 70 },
-    { x: 90, y: 90 },
-    { x: 90, y: 110 },
-    { x: 90, y: 130 }, // bottom right
-    { x: 70, y: 130 },
-    { x: 50, y: 130 },
-    { x: 30, y: 130 },
-    { x: 10, y: 130 } // bottom left
-];
-
+let patrolPath = [];
 let enemyIndex = 0;
 let movingForward = true;
-
-enemy.style.left = patrolPath[0].x + "px";
-enemy.style.top = patrolPath[0].y + "px";
 
 setInterval(checkWin, 65);
 setInterval(moveEnemy, 250);
 setInterval(checkLose, 65);
 
 function moveEnemy() {
-
+    const enemy = document.querySelector(".enemy"); // Query enemy dynamically
     let target = patrolPath[enemyIndex];
 
     enemy.style.left = target.x + "px";
     enemy.style.top = target.y + "px";
-
 
     // Update enemy index for next movement
     if (movingForward) {
@@ -75,8 +44,8 @@ function moveEnemy() {
 }
 
 function movePlayer(dx, dy) {
-    newX = Math.max(0, Math.min(gameWidth, posX+dx));
-    newY = Math.max(0, Math.min(gameHeight, posY+dy));
+    const newX = Math.max(0, Math.min(gameWidth, posX + dx));
+    const newY = Math.max(0, Math.min(gameHeight, posY + dy));
     if (!isCollidingWithObstacle(newX, newY)) {
         posX = newX;
         posY = newY;
@@ -99,10 +68,11 @@ function resetGame() {
 
 function checkWin() {
     if (gameOver) return;
-    
+
     const goal = document.querySelector(".goal");
     const goalRect = goal.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
+
     const isTouching =
         playerRect.left < goalRect.right &&
         playerRect.right > goalRect.left &&
@@ -116,6 +86,8 @@ function checkWin() {
 
 function checkLose() {
     if (gameOver) return;
+
+    const enemy = document.querySelector(".enemy"); // Query enemy dynamically
     const enemyRect = enemy.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
 
@@ -125,9 +97,9 @@ function checkLose() {
         playerRect.top < enemyRect.bottom &&
         playerRect.bottom > enemyRect.top;
 
-        if (isTouching) {
-            showMessage("😢 Game Over! The enemy got you!");
-        }
+    if (isTouching) {
+        showMessage("😢 Game Over! The enemy got you!");
+    }
 }
 
 function showMessage(text) {
@@ -139,6 +111,7 @@ function showMessage(text) {
 function isCollidingWithObstacle(newX, newY) {
     const tempPlayer = { left: newX, top: newY, right: newX + 20, bottom: newY + 20 };
 
+    const obstacles = document.querySelectorAll(".obstacle"); // Query obstacles dynamically
     for (const obstacle of obstacles) {
         const obsRect = obstacle.getBoundingClientRect();
         const obs = {
@@ -166,9 +139,11 @@ function getRandomMap() {
 }
 
 function setupMap(mapData) {
+    // Clear existing obstacles and enemies
     document.querySelectorAll(".obstacle").forEach(obs => obs.remove());
     document.querySelectorAll(".enemy").forEach(enemy => enemy.remove());
 
+    // Add obstacles
     mapData.obstacles.forEach(obs => {
         const obstacle = document.createElement("div");
         obstacle.className = "obstacle";
@@ -177,18 +152,21 @@ function setupMap(mapData) {
         gameWindow.appendChild(obstacle);
     });
 
+    // Add enemy patrol path
     const enemy = document.createElement("div");
     enemy.className = "enemy";
     enemy.style.left = `${mapData.enemyPath[0].x}px`;
     enemy.style.top = `${mapData.enemyPath[0].y}px`;
     gameWindow.appendChild(enemy);
 
-    patrolPath.length = 0;
+    // Update enemy movement logic
+    patrolPath.length = 0; // Clear existing path
     mapData.enemyPath.forEach(point => patrolPath.push(point));
     enemyIndex = 0;
     movingForward = true;
 }
 
+// Event listeners for controls
 document.querySelector(".up").addEventListener("click", () => {
     if (!gameOver) movePlayer(0, -step);
 });
@@ -231,4 +209,5 @@ document.addEventListener("keyup", (event) => {
     }
 });
 
+// Initialize the game
 resetGame();

@@ -5,7 +5,9 @@ const maps = [
             { x: 100, y: 50 },
             { x: 200, y: 100 },
             { x: 50, y: 200 },
-            { x: 300, y: 150 }
+            { x: 300, y: 150 },
+            { x: 150, y: 150 },
+            { x: 500, y: 300 }
         ],
         enemyPath: [
             { x: 90, y: 10 },
@@ -52,9 +54,3 @@ const maps = [
         ]
     }
 ];
-
-function getRandomMap() {
-    return maps[Math.floor(Math.random() * maps.length)];
-}
-
-export { getRandomMap };
