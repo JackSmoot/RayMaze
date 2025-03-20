@@ -17,7 +17,7 @@ let enemyIndex = 0;
 let movingForward = true;
 
 setInterval(checkWin, 65);
-setInterval(moveEnemy, 250);
+setInterval(moveEnemy, 100);
 setInterval(checkLose, 65);
 
 function moveEnemy() {
