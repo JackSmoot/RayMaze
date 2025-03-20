@@ -182,7 +182,7 @@ document.querySelector(".right").addEventListener("click", () => {
 
 playAgainButton.addEventListener("click", resetGame);
 
-document.addEventListener("keyup", (event) => {
+document.addEventListener("keydown", (event) => {
     if (gameOver) return;
 
     switch (event.key) {
