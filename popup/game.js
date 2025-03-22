@@ -63,6 +63,7 @@ function resetGame() {
     player.style.top = posY + "px";
 
     const randomMap = getRandomMap();
+    
     setupMap(randomMap);
 }
 
@@ -136,6 +137,7 @@ function isCollidingWithObstacle(newX, newY) {
 function getRandomMap() {
     const randomIndex = Math.floor(Math.random() * maps.length);
     return maps[randomIndex];
+    //return maps[3];
 }
 
 function setupMap(mapData) {
