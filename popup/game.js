@@ -19,6 +19,20 @@ let movingForward = true;
 setInterval(checkWin, 65);
 setInterval(moveEnemy, 100);
 setInterval(checkLose, 65);
+setInterval(updateTimer, 1000);
+
+let timeLeft = 30;
+const timerDisplay = document.getElementById("timer-display");
+
+// Decrement timer every one second
+function updateTimer() {
+    if (timeLeft <= 0) {
+        showMessage("⏳ Time's up! Reset Game?");
+        return;
+    }
+    timerDisplay.textContent = timeLeft;
+    timeLeft--;
+}
 
 function moveEnemy() {
     const enemy = document.querySelector(".enemy"); // Query enemy dynamically
@@ -60,11 +74,13 @@ function resetGame() {
     posX = 0;
     posY = 0;
     player.style.left = posX + "px";
-    player.style.top = posY + "px";
-
-    const randomMap = getRandomMap();
+    player.style.top = posY + "px"; // Reset Player
     
-    setupMap(randomMap);
+    const randomMap = getRandomMap();
+    setupMap(randomMap); // Reset Map
+
+    timeLeft = 30;  
+    timerDisplay.textContent = timeLeft; // Reset Timer
 }
 
 function checkWin() {
@@ -75,9 +91,9 @@ function checkWin() {
     const playerRect = player.getBoundingClientRect();
 
     const isTouching =
-        playerRect.left < goalRect.right &&
-        playerRect.right > goalRect.left &&
-        playerRect.top < goalRect.bottom &&
+        playerRect.left < goalRect.right && 
+        playerRect.right > goalRect.left && 
+        playerRect.top < goalRect.bottom && 
         playerRect.bottom > goalRect.top;
 
     if (isTouching) {
@@ -136,8 +152,8 @@ function isCollidingWithObstacle(newX, newY) {
 
 function getRandomMap() {
     const randomIndex = Math.floor(Math.random() * maps.length);
-    //return maps[randomIndex];
-    return maps[4];
+    return maps[randomIndex];
+    //return maps[4]; // Map Tester
 }
 
 function setupMap(mapData) {
@@ -154,7 +170,7 @@ function setupMap(mapData) {
         gameWindow.appendChild(obstacle);
     });
 
-    // Add enemy patrol path
+    // Add enemy
     const enemy = document.createElement("div");
     enemy.className = "enemy";
     enemy.style.left = `${mapData.enemyPath[0].x}px`;

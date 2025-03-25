@@ -36,6 +36,15 @@
             border-radius: 10px;
             display: none;
         }
+        #timer-display {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
         .hidden {
             display: none;
         }
@@ -103,11 +112,13 @@
     </style>
 </head>
 <body>
-    <h2>RayMaze</h2>
+    <h2 style="display: flex; align-items: center; justify-content: space-between;">
+        RayMaze 
+        <span id="timer-display">30</span>
+    </h2>
     <div class="game-window">
         <div class="player" id="player"></div>
         <div class="goal"></div>
-
     </div>
     <div id="message-box" class="hidden">
         <p id="message-text"></p>
