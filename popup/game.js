@@ -153,7 +153,7 @@ function isCollidingWithObstacle(newX, newY) {
 function getRandomMap() {
     const randomIndex = Math.floor(Math.random() * maps.length);
     //return maps[randomIndex];
-    return maps[7]; // Map Tester
+    return maps[8]; // Map Tester
 }
 
 function setupMap(mapData) {
